@@ -1,0 +1,77 @@
+
+<!-- indexer::stop -->
+<nav class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
+  <?php if ($this->headline): ?>
+    <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+  <?php endif; ?>
+
+  <?php echo $this->items; ?>
+
+</nav>
+
+<a href="#<?php echo substr($this->cssID, 5, -1); ?>" id="<?php echo substr($this->cssID, 5, -1); ?>-open-icon"><?php echo $this->mmOpenTitle; ?></a>
+<!-- indexer::continue -->
+
+<style type="text/css">
+#<?php echo substr($this->cssID, 5, -1); ?>-open-icon, .mm-menu
+{
+    display: none;
+}
+
+@media all and (max-width: 767px)
+{
+#<?php echo substr($this->cssID, 5, -1); ?>-open-icon
+{
+	background: center center no-repeat transparent;
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAE1JREFUeNpi/P//PwOtARMDHQBdLGFBYt+nkR2KjEhxQqvIYaR7cD2glSWMo0mY3DiJo5Edi4ZPEqZ7nMSP5pPRon60qB9NwpQDgAADAMIxHUJvWs/TAAAAAElFTkSuQmCC);
+
+	display: block;
+	width: 60px;
+	height: 60px;
+	position: relative;
+	top: 0;
+	left: 0;
+    text-indent: -9999px;
+}
+
+#<?php echo substr($this->cssID, 5, -1); ?>
+{
+    display: none;
+}
+}
+
+<?php if ($this->mmTransitionDuration): ?>
+<?php $transitionDuration = number_format($this->mmTransitionDuration/1000, 2, '.', '') . 's'; ?>
+html.mm-opened .mm-page,
+html.mm-opened #mm-blocker,
+html.mm-opened .mm-fixed-top,
+html.mm-opened .mm-fixed-bottom,
+html.mm-opened .mm-menu.mm-horizontal > .mm-panel {
+  -webkit-transition: none <?php echo $transitionDuration; ?> ease;
+  -moz-transition: none <?php echo $transitionDuration; ?> ease;
+  -ms-transition: none <?php echo $transitionDuration; ?> ease;
+  -o-transition: none <?php echo $transitionDuration; ?> ease;
+  transition: none <?php echo $transitionDuration; ?> ease;
+  -webkit-transition-property: top, right, bottom, left, border;
+  -moz-transition-property: top, right, bottom, left, border;
+  -ms-transition-property: top, right, bottom, left, border;
+  -o-transition-property: top, right, bottom, left, border;
+  transition-property: top, right, bottom, left, border; 
+}
+<?php if ($this->mmPosition || $this->mmZPosition): ?>
+.mm-menu.mm-front,
+.mm-menu.mm-next {
+  -webkit-transition: none <?php echo $transitionDuration; ?> ease;
+  -moz-transition: none <?php echo $transitionDuration; ?> ease;
+  -ms-transition: none <?php echo $transitionDuration; ?> ease;
+  -o-transition: none <?php echo $transitionDuration; ?> ease;
+  transition: none <?php echo $transitionDuration; ?> ease;
+  -webkit-transition-property: top, right, bottom, left, -webkit-transform;
+  -moz-transition-property: top, right, bottom, left, -moz-transform;
+  -ms-transition-property: top, right, bottom, left, -o-transform;
+  -o-transition-property: top, right, bottom, left, -o-transform;
+  transition-property: top, right, bottom, left, transform; }
+<?php endif; ?>
+<?php endif; ?>
+</style>

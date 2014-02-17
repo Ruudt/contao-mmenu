@@ -1,0 +1,71 @@
+
+<!-- indexer::stop -->
+<nav class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
+
+  <?php if ($this->headline): ?>
+    <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+  <?php endif; ?>
+
+  <a href="<?php echo $this->request; ?>#<?php echo $this->skipId; ?>" class="invisible"><?php echo $this->skipNavigation; ?></a>
+
+  <?php echo $this->items; ?>
+
+  <a id="<?php echo $this->skipId; ?>" class="invisible">&nbsp;</a>
+
+</nav>
+
+<a href="#<?php echo substr($this->cssID, 5, -1); ?>" id="open-icon-header">Open the menu</a>
+<!-- indexer::continue -->
+
+<?php 
+$GLOBALS['TL_CSS'][] = 'system/modules/mmenu/assets/css/jquery.mmenu.css|all and (max-width: 500px)|';
+$GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/mmenu/assets/js/jquery.mmenu.js|static';
+$GLOBALS['TL_JQUERY'][] = '
+<script>
+$("#'.substr($this->cssID, 5, -1).'").mmenu({
+       // options object
+    }, {
+       // configuration object
+       selectedClass: "active",
+       clone: true
+    });
+$("#'.($this->mmClone ? 'mm-' : '').substr($this->cssID, 5, -1).'")
+    .on("opening.mm", function(){
+        $("#wrapper").attr("data-mmenu-opened", "true");
+        $(window).resize();
+    })
+    .on("closing.mm", function(){
+        $("#wrapper").attr("data-mmenu-opened", "false");
+    });
+</script>
+';
+?>
+
+<style type="text/css">
+#open-icon-header, .mm-menu
+{
+    display: none;
+}
+
+@media all and (max-width: 500px)
+{
+#open-icon-header
+{
+	background: center center no-repeat transparent;
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAE1JREFUeNpi/P//PwOtARMDHQBdLGFBYt+nkR2KjEhxQqvIYaR7cD2glSWMo0mY3DiJo5Edi4ZPEqZ7nMSP5pPRon60qB9NwpQDgAADAMIxHUJvWs/TAAAAAElFTkSuQmCC);
+
+	display: block;
+	width: 60px;
+	height: 60px;
+	position: relative;
+	top: 0;
+	left: 0;
+    text-indent: -9999px;
+}
+
+#<?php echo substr($this->cssID, 5, -1); ?>
+{
+    display: none;
+}
+}
+</style>
